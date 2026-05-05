@@ -1,4 +1,4 @@
-# rebuild-rag
+# README.md
 
 ## Re:build-RAG スターターキット
 
@@ -26,8 +26,7 @@ Just load START.md and start talking.
 思想と設計については、こちらにまとめています：
 
 👉 note記事  
-https://note.com/bright_bee2741/n/nfc9a9119f5a6
+https://note.com/yamayoshi7/n/nfc9a9119f5a6
 
----
 
 まもなく「会話するだけで起動する」スターターキットを公開します。
