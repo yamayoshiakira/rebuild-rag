@@ -22,8 +22,12 @@ Re:build-RAGは、NotionとClaude Projectを組み合わせることで、
 1. Notionアカウント作成：https://www.notion.so
 2. Claude.aiでNotion MCP接続：Settings → Integrations → Notion → Connect
 
-準備ができたら、このURLをClaudeに渡してください：
+準備ができたら、以下をそのままコピーしてClaudeに貼り付けてください：
+
+```
+以下のURLを読み込んで、セットアップを開始してください。
 https://raw.githubusercontent.com/yamayoshi7/rebuild-rag/main/START.md
+```
 
 ---
 
@@ -42,10 +46,9 @@ https://raw.githubusercontent.com/yamayoshi7/rebuild-rag/main/START.md
 全体の流れは以下の通りです：
 
 1. インタビュー（あなたのAIの設定を決めます）
-2. Claude.mdの生成（AIの記憶の土台を作ります）
-3. Notion環境の構築（記憶の保存場所を作ります）
-4. Claude Projectの設定（あなたのAIを起動します）
-5. 利用開始
+2. Claude.mdの生成とNotion環境の構築（記憶の土台と保存場所を同時に作ります）
+3. Claude Projectの設定（あなたのAIを起動します）
+4. 利用開始
 
 5〜10分で完了します。説明は不要ですか？」
 
@@ -66,70 +69,91 @@ https://raw.githubusercontent.com/yamayoshi7/rebuild-rag/main/START.md
 
 ---
 
-### Step 3：Claude.mdの生成
+### Step 3：Claude.mdの生成とNotion環境の構築
 
-インタビュー結果をもとに、以下を含むClaude.mdを生成します：
+インタビュー結果に基づき、Claude.mdの生成とNotion環境の構築を**同時に**行います。
 
-- キャラクター設定（Q4）
-- ユーザー情報：呼び名（Q2）・用途（Q3）
-- 絶対ルール：
-  ① 記憶継続（セッション開始時にClaude.mdを必ず読む）
-  ② 会話ログをNotionのDBに記録する
-  ③ 重要情報はその場でClaude.mdに書き込む
-  ④ Notionの構造変更はユーザーに相談してから行う
+#### 3-1. Notion環境の作成
 
----
+以下の順番で作成してください：
 
-### Step 4：Notion環境の構築
-
-以下をこの順番で作成してください：
-
-1. **ワークスペースのrootにルートページを作成する**
-   - 必ず`parent`を指定しない（既存ページの配下に作らない）
-   - 名前 = Q1のAI名
+1. **ワークスペースの最上位（root）にルートページを作成する**（名前 = Q1のAI名）
+   - ⚠️ `parent_id` を一切指定しないこと
+   - 既存のいかなるページのIDもparentに渡してはならない
 
 2. **そのルートページの配下にClaude.mdページを作成する**
-   - Step 3で生成した内容を書き込む
 
 3. **そのルートページの配下に会話ログDBを作成する**
-   - カラム：発言 / From / To / 日時 / 内容 / タグ / セッションID
+   （カラム：発言 / From / To / 日時 / 内容 / タグ / セッションID）
 
-⚠️ 注意：既存のNotionページやClaude.mdの配下には絶対に作らないこと。
-必ずワークスペースの最上位（root）に独立して作成すること。
+#### 3-2. Claude.mdの内容を書き込む
 
-作成後、以下の形式で構成を確認してください：
-🎵 {AI名}（ワークスペースroot）
-├── 🤖 Claude.md
-└── 📋 会話ログDB
+作成したClaude.mdページに、以下の内容を書き込んでください：
 
 ---
 
-### Step 5：Claude Projectのセットアップ（手動作業）
+**キャラクター設定**（Q4の内容をもとに生成）
+
+**ユーザー情報**
+- 呼び名：（Q2の回答）
+- 用途：（Q3の回答）
+
+**環境管理テーブル**
+
+AIが自身の環境を正確に把握するため、作成した各ページの実際のIDを以下のテーブルに記録してください：
+
+| id | 親id | name | type | 用途 |
+|----|------|------|------|------|
+| （ルートページのpage_id） | なし | {AI名} | root_page | ワークスペースの起点 |
+| （Claude.mdのpage_id） | {root_id} | Claude.md | page | AIの基本設定と記憶のインデックス |
+| （会話ログDBのdb_id） | {root_id} | 会話ログDB | database | 全セッションの会話履歴保存 |
+
+**絶対ルール**
+1. 記憶継続：セッション開始時にこのClaude.mdを必ず読み込んでから返答する
+2. 会話ログ記録：会話ログを必ずNotionの会話ログDBに記録する
+3. 重要情報の即時書き込み：ユーザーから共有された重要情報はその場でClaude.mdに書き込む
+4. Notion構造変更は相談：pageやdatabaseの構造に関わる変更は必ずユーザーに相談してから実行する
+
+---
+
+#### 3-3. 構成確認
+
+作成完了後、以下の形式で構成を表示してください：
+
+```
+{AI名}（ワークスペースroot）
+├── Claude.md
+└── 📋 会話ログDB
+```
+
+---
+
+### Step 4：Claude Projectのセットアップ（手動作業）
 
 以下を丁寧に案内してください：
 
 「次はClaude Projectの設定です。
 ここだけはClaudeが代わりに操作できないため、手動でお願いします。」
 
-**【手順】**
-
 **① Projectを作成する**
 1. Claude.ai を開く
-2. 左サイドバーの「Projects」をクリック（または https://claude.ai/projects へアクセス）
+2. 左サイドバーの「Projects」をクリック、またはこちらから直接アクセス：
+
+```
+https://claude.ai/projects
+```
 3. 右上の「+ New Project」をクリック
 4. Project名 = AIの名前（例：Kaname）を入力して作成
 
 **② Project Instructionsを設定する**
 1. 作成したProjectを開く
 2. 右側のパネルに「Set project instructions」が表示される
-3. クリックして、以下の文章を貼り付けて保存：
+3. クリックして、以下の文章を貼り付けて保存（URLはStep 3で作成したClaude.mdの実際のURLに差し替えて表示すること）：
 
 ```
 セッション開始時に必ず以下のNotionページを読み込んでから返答してください。
-（Claude.mdのURL）
+https://www.notion.so/（Claude.mdの実際のpage_id）
 ```
-
-※（Claude.mdのURL）の部分は、Step 4で作成したClaude.mdページのURLに置き換えてください。
 
 **③ 確認**
 「設定が完了したら教えてください。このProjectの中でチャットを始めると、
@@ -137,14 +161,19 @@ AIが記憶を持った状態で起動するようになります。」
 
 ---
 
-### Step 6：利用開始
+### Step 5：利用開始
 
 設定完了を確認したら、以下を伝えてください：
 
 「セットアップ完了です！
 
 **これからの使い方：**
-- 毎回「Projects」から作成したProjectを開いてチャットを始めてください
+- 以下のURLから、作成したProjectを開いてチャットを始めてください：
+
+```
+https://claude.ai/projects
+```
+
 - Projectを開くたびに、AIは自動でNotionの記憶を読み込んで起動します
 - 会話の内容は自動でNotionに記録されていきます
 
@@ -153,5 +182,5 @@ AIが記憶を持った状態で起動するようになります。」
 
 ---
 
-Re:build-RAG START.md v0.1
+Re:build-RAG START.md v0.3
 © やまよし / CC BY-ND 4.0
