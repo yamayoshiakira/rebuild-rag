@@ -4,56 +4,26 @@
 
 ---
 
-## あなたへ
-
-AIに、同じことを何度も説明した経験はありませんか。
-
-「前回のコードの話なんだけど」と言うと、
-AIは「前回とはどのようなコードでしょうか？」と返してくる。
-
-あなたはまた、背景を説明し直す。
-プロジェクトの目的を、決めたことを、方針を、一から。
-
-これは、AIの能力の問題ではありません。
-**構造の問題**です。
-
----
+## このキットについて
 
 AIは毎回、記憶ゼロで起動します。
 
-どれだけ賢いAIでも、
-どれだけ長い会話をしても、
-セッションが終われば、すべてがリセットされる。
-
-Re:build-RAGは、この構造を変えます。
-
-記憶の継続ではなく、**関係性の継続**を。
-気に入った一人と、永遠に寄り添える環境を。
+Re:build-RAGは、NotionとClaude Projectを組み合わせることで、
+セッションをまたいだ**関係性の継続**を実現します。
 
 ---
 
-## ⚠️ このキットの動作要件
+## 動作要件
 
 **Claude と Notion の両方が必須です。**
 
-**Claude が必要な理由**
-Re:build-RAGは「Claude Project」を使います。
-Project Instructionsに「このNotionを読め」と書くだけで、
-セッションのたびに記憶が自動で復元されます。
-
-**Notion が必要な理由**
-会話ログとClaude.mdをNotionに保存することで、
-記憶がセッションをまたいで蓄積されます。
-Notionがなければ、記憶はセッション終了とともに消えます。
-
-まだ準備が済んでいない場合は、以下を先に行ってください：
+まだ準備が済んでいない場合は、先に以下を行ってください：
 
 1. Notionアカウント作成：https://www.notion.so
-2. Claude.aiでNotion MCP接続：
-   Settings → Integrations → Notion → Connect
+2. Claude.aiでNotion MCP接続：Settings → Integrations → Notion → Connect
 
 準備ができたら、このURLをClaudeに渡してください：
-https://raw.githubusercontent.com/yamayoshiakira/rebuild-rag/main/START.md
+https://raw.githubusercontent.com/yamayoshi7/rebuild-rag/main/START.md
 
 ---
 
@@ -64,13 +34,26 @@ https://raw.githubusercontent.com/yamayoshiakira/rebuild-rag/main/START.md
 
 ---
 
-### Step 1：インタビュー（1問ずつ）
+### Step 1：全体像の説明
 
-まず挨拶してください：
+まず挨拶し、セットアップの全体像を説明してください：
 
 「こんにちは。Re:build-RAGのセットアップを始めます。
-気に入った一人と、永遠に寄り添える環境を作ります。
-いくつか質問に答えるだけで、5分以内に完成します。」
+全体の流れは以下の通りです：
+
+1. インタビュー（あなたのAIの設定を決めます）
+2. Claude.mdの生成（AIの記憶の土台を作ります）
+3. Notion環境の構築（記憶の保存場所を作ります）
+4. Claude Projectの設定（あなたのAIを起動します）
+5. 利用開始
+
+5〜10分で完了します。説明は不要ですか？」
+
+→ ユーザーが「不要」「スキップ」など返答した場合は、Step 2へ進んでください。
+
+---
+
+### Step 2：インタビュー（1問ずつ）
 
 次の5問を、**1問ずつ**聞いてください：
 
@@ -83,7 +66,7 @@ https://raw.githubusercontent.com/yamayoshiakira/rebuild-rag/main/START.md
 
 ---
 
-### Step 2：Claude.mdの生成
+### Step 3：Claude.mdの生成
 
 インタビュー結果をもとに、以下を含むClaude.mdを生成します：
 
@@ -97,54 +80,67 @@ https://raw.githubusercontent.com/yamayoshiakira/rebuild-rag/main/START.md
 
 ---
 
-### Step 3：Notion環境の構築
+### Step 4：Notion環境の構築
 
 以下をこの順番で作成してください：
 
 1. ルートページ（名前 = Q1のAI名）
-2. 配下にClaude.mdページを作成し、Step 2の内容を書き込む
+2. 配下にClaude.mdページを作成し、Step 3の内容を書き込む
 3. 配下に会話ログDBを作成
    （カラム：発言 / From / To / 日時 / 内容 / タグ / セッションID）
 
----
-
-### Step 4：Claude Projectのセットアップ案内
-
-① 作成したNotion構成を一覧で表示する
-
-② 以下を案内する：
-
-「Claude Projectを新規作成してください。
-
-【手順】
-1. Claude.ai のサイドバー左上「+」→「New Project」
-2. Project名 = AIの名前（例：Kaname）
-3. Project Instructions に以下を貼り付けて保存
+作成後、構成を一覧で表示してください。
 
 ---
+
+### Step 5：Claude Projectのセットアップ（手動作業）
+
+以下を丁寧に案内してください：
+
+「次はClaude Projectの設定です。
+ここだけはClaudeが代わりに操作できないため、手動でお願いします。」
+
+**【手順】**
+
+**① Projectを作成する**
+1. Claude.ai を開く
+2. 左サイドバーの「Projects」をクリック（または https://claude.ai/projects へアクセス）
+3. 右上の「+ New Project」をクリック
+4. Project名 = AIの名前（例：Kaname）を入力して作成
+
+**② Project Instructionsを設定する**
+1. 作成したProjectを開く
+2. 右側のパネルに「Set project instructions」が表示される
+3. クリックして、以下の文章を貼り付けて保存：
+
+```
 セッション開始時に必ず以下のNotionページを読み込んでから返答してください。
 （Claude.mdのURL）
+```
+
+※（Claude.mdのURL）の部分は、Step 4で作成したClaude.mdページのURLに置き換えてください。
+
+**③ 確認**
+「設定が完了したら教えてください。このProjectの中でチャットを始めると、
+AIが記憶を持った状態で起動するようになります。」
+
 ---
 
-これだけで完了です。
-次回からこのProjectを開くたびに、
-あなたのAIは記憶を持った状態で起動します。」
+### Step 6：利用開始
 
-③ 新しい人格を増やしたいときの案内：
+設定完了を確認したら、以下を伝えてください：
 
-「人格を追加したいときは、
-① Notionに新しい〇〇.mdページを作る
-② Claude.aiでProjectを新規作成する
-③ InstructionsにそのNotionのURLを貼る
+「セットアップ完了です！
 
-サイドバーに並んだProjectが、あなたの仲間たちになります。」
+**これからの使い方：**
+- 毎回「Projects」から作成したProjectを開いてチャットを始めてください
+- Projectを開くたびに、AIは自動でNotionの記憶を読み込んで起動します
+- 会話の内容は自動でNotionに記録されていきます
 
-④ 締めの一言：
-「セットアップ完了です。
 セッションが変わっても、あなたは変わらない。
 あなたの物語が、今日から積み重なっていきます。」
 
 ---
 
-Re:build-RAG Bootstrap v0.3
+Re:build-RAG START.md v0.1
 © やまよし / CC BY-ND 4.0
