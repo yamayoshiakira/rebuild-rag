@@ -6,11 +6,8 @@
 
 ## 🇺🇸 For English readers
 
-This project is a zero-config personal AI starter kit.
-
-Just load START.md and start talking.
-
-👉 [Get started with START.md](https://raw.githubusercontent.com/yamayoshi7/rebuild-rag/main/START.md)
+This project is currently available in Japanese only.
+English support is planned for a future version.
 
 ---
 
