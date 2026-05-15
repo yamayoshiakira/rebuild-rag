@@ -1,6 +1,4 @@
-# README.md
-
-## Re:build-RAG スターターキット
+# Re:build-RAG スターターキット
 
 > 設定はいらない。会話するだけ。
 
@@ -12,6 +10,8 @@ This project is a zero-config personal AI starter kit.
 
 Just load START.md and start talking.
 
+👉 [Get started with START.md](https://raw.githubusercontent.com/yamayoshi7/rebuild-rag/main/START.md)
+
 ---
 
 ## 概要
@@ -19,14 +19,18 @@ Just load START.md and start talking.
 これは「RAGツール」ではありません。
 対話を継続するための基盤です。
 
-## 🚧 スターターキットについて
+## 🚀 v0.3 公開中
 
-現在開発中です。
+スターターキット v0.3 が利用可能です。
+
+以下の内容をそのまま Claude に貼り付けるだけで起動します：
+
+```
+以下のURLを読み込んで、セットアップを開始してください。
+https://raw.githubusercontent.com/yamayoshi7/rebuild-rag/main/START.md
+```
 
 思想と設計については、こちらにまとめています：
 
 👉 note記事  
 https://note.com/yamayoshi7/n/nfc9a9119f5a6
-
-
-まもなく「会話するだけで起動する」スターターキットを公開します。
